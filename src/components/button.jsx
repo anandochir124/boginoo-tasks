@@ -24,6 +24,8 @@ export const Button = (props) => {
       
     */
     return (
-        <button>{children}</button>
+        <button className={`btn ${className} ${disabled && 'disabled'}`} {...others}>
+            {children}
+        </button>
     );
 };

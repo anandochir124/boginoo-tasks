@@ -10,11 +10,18 @@
 
 .btn {
     border-radius: 100px;
+    text-transform: uppercase;
+    text-decoration: none;
+    outline: none !important;
 }
 
 .disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    user-select: none;
 }
 
 .input {
     border-radius: 100px;
+    outline: none;
 }

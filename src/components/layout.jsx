@@ -19,7 +19,7 @@ export const Layout = ({ children }) => {
     */
 
     return (
-        <div className='flex flex-col items-center pa-3' style={{ width: '100vw', height: '100vh' }}>
+        <div className='flex flex-col items-center pa-60' style={{ width: '100vw', height: '100vh' }}>
             {/* NAVIGATION */}
             <Navigation />
 
