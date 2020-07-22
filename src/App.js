@@ -13,6 +13,7 @@ import ForgotPass from './components/forgotPass'
 import Shortened from './components/short'
 import History from './components/history'
 import AuthContext from './providers/Provider'
+import Jump from './pages/jump'
 
 const App = () => {
     return (
@@ -22,35 +23,23 @@ const App = () => {
                     <Route path="/" exact>
                         <HomeDefault />
                     </Route>
-                </Switch>
-
-                <Switch>
                     <Route path="/login" exact>
                         <Login/>
                     </Route>
-                </Switch>
-
-                <Switch>
                     <Route path="/register" exact>
                         <Reg/>
                     </Route>
-                </Switch>
-
-                <Switch>
                     <Route path="/forgotpass" exact>
                         <ForgotPass />
                     </Route>
-                </Switch>
-
-                <Switch>
                     <Route path="/shortened" exact>
                         <Shortened />
                     </Route>
-                </Switch>
-
-                <Switch>
                     <Route path="/history" exact>
                         <History />
+                    </Route>
+                    <Route path="*">
+                        <Jump />
                     </Route>
                 </Switch>
             </Router>

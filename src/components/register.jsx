@@ -46,6 +46,8 @@ const Reg = () => {
             await auth.currentUser.sendEmailVerification().then(function () {
                 alert('Email Verification Sent!');
                 console.log(uid2);
+                
+                window.location.href = '/'
                 // firestore.collection('users').doc(uid2).set({username: user})
             });
         }
