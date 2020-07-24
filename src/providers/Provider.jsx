@@ -6,14 +6,13 @@ export const AuthContext = createContext({
     user: null,
     ready: false,
     setUser: () => {},
-    // auth: firebase.auth(app),
-    // firestore: firebase.firestore(app),
-    url: ''
+    uid: '',
 })
 
 export const AuthContextProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [ready, setReady] = useState(false);
+    const [uid, setUid] = useState('');
 
     const {auth} = useFirebase();
 
@@ -27,6 +26,7 @@ export const AuthContextProvider = ({children}) => {
             if (user) {
                 setReady(true);
                 setUser(user);
+                setUid(user.uid)
             }
         })
 

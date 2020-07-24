@@ -1,16 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { Layout, Button, Input, IconDash, IconEndBracket, IconStartBracket } from '../components/';
 import {
-    Link,
     useHistory
 } from "react-router-dom";
-import AuthContext from '../providers/Provider'
+import { AuthContext } from '../providers/Provider'
 import { useFirebase } from '../firebase'
 
 export const HomeDefault = () => {
-    const test = useContext(AuthContext);
-    console.log(test);
-    const [sh, setSh] = useState('')
+    const {user} = useContext(AuthContext);
+    const [sh, setSh] = useState('');
+    let count = 0;
     const { firestore } = useFirebase();
     const history = useHistory();
 
@@ -22,12 +21,6 @@ export const HomeDefault = () => {
 
 
 
-    // if(user != null) {
-    //     firestore.collection("users").doc(user.email.split('@')[0]).set({
-    //         test: '0',
-    //     });
-    // }
-
     const Short = () => {
         if(urlInputState != '') {
             let randomString = randomStringAndNumber();
@@ -36,6 +29,33 @@ export const HomeDefault = () => {
                 inputUrl: urlInputState,
                 outputUrl: 'https://bogi-noo.web.app/' + randomString,
             });
+            
+            if(user != null) {
+
+                firestore.collection('users').doc(user.email.split('@')[0]).get().then((doc) => {
+                    console.log(doc.data().count, "DB");
+                    count += doc.data().count;
+                }).then(() => {
+                    if(!count) {
+                        firestore.collection("users").doc(user.email.split('@')[0]).set({
+                            count: 0,
+                        });
+                        count = 0;
+                    }
+
+    
+                    firestore.collection("users").doc(user.email.split('@')[0]).collection('history').doc(`${(count + 1)}`).set({
+                        inputUrl: urlInputState,
+                        outputUrl: 'https://bogi-noo.web.app/' + randomString, 
+                    });
+    
+                    firestore.collection("users").doc(user.email.split('@')[0]).set({
+                        count: (count + 1),
+                    });
+                })
+
+            }
+
             history.push(`shortened?shorturl=${randomString}`);
         }
     }

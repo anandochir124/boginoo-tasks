@@ -19,7 +19,7 @@ export const Navigation = (props) => {
     */
 
     let History = useHistory();
-    console.log(History);
+    // console.log(History);
     let {user} = useContext(AuthContext);
     const { auth } = useFirebase();
     
