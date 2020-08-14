@@ -1,0 +1,14 @@
+image:
+  - node
+  - firebase
+
+stages: 
+  - deploy
+
+compile: 
+  stage: deploy
+  script:
+    - echo "Build starting"
+    - npm build
+    - echo "deploy starting"
+    - firebase deploy
