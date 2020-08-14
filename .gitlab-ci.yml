@@ -9,5 +9,6 @@ compile:
     - echo "Build starting"
     - npm build
     - npm i firebase-tools
+    - npm i firebase
     - echo "deploy starting"
     - firebase deploy
