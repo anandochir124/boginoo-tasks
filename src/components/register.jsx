@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Layout, Input, Button, IconDash } from '../components'
 import { useFirebase } from '../firebase'
+import { useKeyPress } from '../hooks/keyPress';
 
 
 const Reg = () => {
-    const { auth, firestore } = useFirebase();
+    const { auth } = useFirebase();
     let checkError = null
 
     const [uid, setUid] = useState(null);
@@ -14,12 +15,10 @@ const Reg = () => {
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const [checkPass, setCheckPass] = useState("");
-    const [user, setUser] = useState("");
     
     const changeEmail = (e) => setEmail(e.target.value);
     const changePass = (e) => setPass(e.target.value); 
     const changeCheckPass = (e) => setCheckPass(e.target.value); 
-    const changeUser = (e) => setUser(e.target.value); 
     
     const signUp = async () => {
         
@@ -36,21 +35,25 @@ const Reg = () => {
                 console.log(uid);
             })
             .catch(function (error) {
-                var errorCode = error.code;
                 var errorMessage = error.message;
                 checkError = 'error'
                 alert(errorMessage)
             })
 
-        if(checkError == null) {
+        if(checkError === null) {
             await auth.currentUser.sendEmailVerification().then(function () {
                 alert('Email Verification Sent!');
                 console.log(uid2);
                 
                 window.location.href = '/'
-                // firestore.collection('users').doc(uid2).set({username: user})
             });
         }
+    }
+
+    let enterPressed = useKeyPress('13')
+    console.log(enterPressed)
+    if (enterPressed == true) {
+        signUp();
     }
 
     return (

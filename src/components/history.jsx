@@ -5,20 +5,33 @@ import {AuthContext} from '../providers/Provider'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useCol } from '../hooks/firebase';
 
 const History = () => {
-    const [urls, setUrls] = useState([]);
     const [text, setText] = useState('Copy to clipboard');
     let { firestore } = useFirebase();
     const { user } = useContext(AuthContext);
 
+    const [path, setPath] = useState(null);
+
+    console.log(path)
+
+    const { data: urls } = useCol(path);
+
     useEffect(() => {
         if(firestore && user) {
-            firestore.collection("users").doc(user.email.split('@')[0]).collection('history').get().then((querySnapshot) => {
-                setUrls(querySnapshot.docs.map((doc) => doc.data()))
-            });
+
+            setPath(`users/${user.email.split('@')[0]}/history`)
+            // firestore.collection("users").doc(user.email.split('@')[0]).collection('history').get().then((querySnapshot) => {
+            //     setUrls(querySnapshot.docs.map((doc) => doc.data()))
+            // });
+
+            // data.map(({url}, indx) => {
+            //     setUrls(url);
+            //     console.log(url)
+            // })
         }
-    }, [firestore, user]);
+    }, [firestore, user, path]);
 
     
 
@@ -40,7 +53,7 @@ const History = () => {
                     </div>
 
                     <h2 className='c-primary font-ubuntu justify-start flex w-600 mt-40'>Түүх</h2>
-                    {
+                    {urls && 
                         urls.map((i) => {
                             return (
                                 <div className='w-600 flex-row items-center mb-30 justify-between bb-1'>

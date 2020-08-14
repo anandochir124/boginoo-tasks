@@ -8,7 +8,7 @@ import { useFirebase } from '../firebase'
 
 export const HomeDefault = () => {
     const {user} = useContext(AuthContext);
-    const [sh, setSh] = useState('');
+    // const [sh, setSh] = useState('');
     let count = 0;
     const { firestore } = useFirebase();
     const history = useHistory();
@@ -22,13 +22,9 @@ export const HomeDefault = () => {
 
 
     const Short = () => {
-        if(urlInputState != '') {
+        if(urlInputState !== '') {
             let randomString = randomStringAndNumber();
-            setSh(randomString)
-            firestore.collection('shortened').doc(randomString).set({
-                inputUrl: urlInputState,
-                outputUrl: 'https://bogi-noo.web.app/' + randomString,
-            });
+            // setSh(randomString)
             
             if(user != null) {
 
@@ -54,6 +50,12 @@ export const HomeDefault = () => {
                     });
                 })
 
+            } else {
+                
+                firestore.collection('shortened').doc(randomString).set({
+                    inputUrl: urlInputState,
+                    outputUrl: 'https://bogi-noo.web.app/' + randomString,
+                });
             }
 
             history.push(`shortened?shorturl=${randomString}`);

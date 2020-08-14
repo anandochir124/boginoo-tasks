@@ -99,6 +99,15 @@ body {
     margin: 0;
 }
 
+.pr {
+    position: relative;
+}
+
+.dr {
+    top: 65px;
+    right: 130px;
+    border-top: none;
+}
 @for $i from 1 to 100 {
     .bb-#{$i} {
         border-bottom: solid grey $i + px;
@@ -112,6 +121,10 @@ body {
     .bright-#{$i} {
         border-right: solid black $i + px;
     }
+}
+
+.dn {
+    display: none;
 }
 
 

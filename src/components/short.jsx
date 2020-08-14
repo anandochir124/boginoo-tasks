@@ -4,21 +4,15 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useFirebase } from '../firebase'
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
+const [urlInputState, setUrlInputState] = useState('');
 
-/*
-function Parent({location}) {
-    let params = new URLSearchParams(location.search);
-
-    return <Child name={params.get("filter")} />;
+const handleChange = (event) => {
+    setUrlInputState(event.target.value);
 }
-*/
-
-
 
 const Short = () => {
     const [inputUrl, setInputUrl] = useState('');
     const [outputUrl, setOutputUrl] = useState('');
-    let history = useHistory();
     let url = new URLSearchParams(window.location.search).get('shorturl')
     console.log(url)
     let [text, setText] = useState('Copy to clipboard');
@@ -45,7 +39,7 @@ const Short = () => {
 
                 <div className='flex-col flex-center'>
                     <div className='w-600 mt-5 flex justify-center items-center'>
-                        <Input placeholder='https://www.web-huudas.mn' className='w-400 h-32 mt-8' />
+                        <Input value={urlInputState} onChange={handleChange} placeholder='https://www.web-huudas.mn' className='w-400 h-32 mt-8' />
                         <Button className="font-ubuntu fs-20 lh-23 bold c-default h-32 w-200 ph-16 mt-8 ml-16 b-primary rb" >Богиносгох</Button>
                     </div>
 

@@ -1,17 +1,17 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Layout, Input, Button } from '../components/'
 import { IconDash } from './icon-dash'
 import {
     Link,
 } from "react-router-dom";
 import { useFirebase } from '../firebase'
+import { useKeyPress } from '../hooks/keyPress'
 
 const Login = () => {
-    const { auth, firestore } = useFirebase();
+    const { auth } = useFirebase();
 
     const Sign_In = () => {
         auth.signInWithEmailAndPassword(email, pass).catch(function(error) {
-            var errorCode = error.code;
             var errorMessage = error.message;
             
             alert(errorMessage);
@@ -27,7 +27,11 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
 
-    
+    let enterPressed = useKeyPress('13');
+
+    if(enterPressed === true) {
+        Sign_In();
+    }
 
     return (
         <Layout>
