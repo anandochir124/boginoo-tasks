@@ -1,2 +1,0 @@
-# Boginoo-gitlab
-
