@@ -1,6 +1,4 @@
-image:
-  - node
-  - firebase
+image: node
 
 stages: 
   - deploy
@@ -10,5 +8,6 @@ compile:
   script:
     - echo "Build starting"
     - npm build
+    - npm i firebase-tools
     - echo "deploy starting"
     - firebase deploy
