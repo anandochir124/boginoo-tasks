@@ -10,5 +10,6 @@ compile:
     - npm build
     - npm i -g firebase-tools
     - npm i -g firebase
+    - firebase login
     - echo "deploy starting"
     - firebase deploy
